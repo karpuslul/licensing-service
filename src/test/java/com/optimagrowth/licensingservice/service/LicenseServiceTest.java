@@ -1,6 +1,7 @@
 package com.optimagrowth.licensingservice.service;
 
-import com.optimagrowth.licensingservice.model.License;
+import com.optimagrowth.license.model.License;
+import com.optimagrowth.license.service.LicenseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Random;

@@ -1,7 +1,7 @@
 package com.optimagrowth.licensingservice.controller;
 
-import com.optimagrowth.licensingservice.model.License;
-import com.optimagrowth.licensingservice.service.LicenseService;
+import com.optimagrowth.license.model.License;
+import com.optimagrowth.license.service.LicenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping(value="v1/organization/{organizationId}/license")
 public class LicenseController {
 
-    @Autowired
+   /* @Autowired
     private LicenseService licenseService;
 
     @GetMapping(value = "/{licenseId}")
@@ -26,7 +26,7 @@ public class LicenseController {
         License license = licenseService.getLicense(licenseId, organizationId);
         addLinkForResponce(license, organizationId);
         return ResponseEntity.ok(license);
-    }
+    }*/
 
     /**
      * Добавляет в ответ ссылки на класс модели License
@@ -34,7 +34,7 @@ public class LicenseController {
      * @param license - объект Лицензия
      * @param organizationId - ИД организации
      */
-    private void addLinkForResponce(License license, String organizationId) {
+   /* private void addLinkForResponce(License license, String organizationId) {
         license.add(
                 linkTo(methodOn(LicenseController.class)
                         .getLicense(organizationId, license.getLicenseId()))
@@ -68,5 +68,5 @@ public class LicenseController {
     public ResponseEntity<String> deleteLicense(@PathVariable ("organizationId") String organizationId,
                                                 @PathVariable ("licenseId") String licenseId) {
         return ResponseEntity.ok(licenseService.deleteLicense(licenseId, organizationId));
-    }
+    }*/
 }
