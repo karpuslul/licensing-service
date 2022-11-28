@@ -84,6 +84,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>licenseService</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
