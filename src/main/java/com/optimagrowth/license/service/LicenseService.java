@@ -1,5 +1,6 @@
 package com.optimagrowth.license.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,23 +9,35 @@ import org.springframework.stereotype.Service;
 
 import com.optimagrowth.license.config.ServiceConfig;
 import com.optimagrowth.license.model.License;
+import com.optimagrowth.license.model.Organization;
 import com.optimagrowth.license.repository.LicenseRepository;
 
 @Service
 public class LicenseService {
+
     @Autowired
-    private MessageSource messages;
+    MessageSource messages;
+
     @Autowired
     private LicenseRepository licenseRepository;
 
     @Autowired
-    private ServiceConfig config;
+    ServiceConfig config;
 
-    public License getLicense(String licenseId, String organizationId){
+    public License getLicense(String licenseId, String organizationId, String clientType){
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
         if (null == license) {
             throw new IllegalArgumentException(String.format(messages.getMessage("license.search.error.message", null, null),licenseId, organizationId));
         }
+
+        /*Organization organization = retrieveOrganizationInfo(organizationId, clientType);
+        if (null != organization) {
+            license.setOrganizationName(organization.getName());
+            license.setContactName(organization.getContactName());
+            license.setContactEmail(organization.getContactEmail());
+            license.setContactPhone(organization.getContactPhone());
+        }*/
+
         return license.withComment(config.getProperty());
     }
 
@@ -49,5 +62,9 @@ public class LicenseService {
         responseMessage = String.format(messages.getMessage("license.delete.message", null, null),licenseId);
         return responseMessage;
 
+    }
+
+    public List<License> getLicensesByOrganization(String organizationId) {
+        return licenseRepository.findByOrganizationId(organizationId);
     }
 }
